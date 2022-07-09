@@ -1,14 +1,12 @@
-body {
-  padding: 0;
-  margin: 0;
+header {
+  background-color: #333;
 }
-
 header ul {
   list-style-type: none;
-  margin: 0;
   padding: 0;
   overflow: hidden;
-  background-color: #333;
+  max-width: 1020px;
+  margin: auto;
 }
 header ul li {
   float: left;
@@ -34,6 +32,20 @@ header ul li:nth-last-child(-n+2) {
 }
 header ul li:last-child {
   border-left: none;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+main {
+  max-width: 1020px;
+  margin: auto;
+  background-color: white;
+}
+main h1 {
+  text-align: center;
 }
 
 /*# sourceMappingURL=site.css.map */

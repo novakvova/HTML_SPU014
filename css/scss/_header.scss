@@ -1,10 +1,13 @@
 ﻿header {
+    background-color: $header-bg-color;
+
     ul {
         list-style-type: none;
-        margin: 0;
         padding: 0;
         overflow: hidden;
-        background-color: $header-bg-color;
+        max-width: $body-width-max;
+        margin: auto;
+
 
         li {
             float: left;
