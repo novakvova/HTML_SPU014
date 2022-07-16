@@ -1,13 +1,13 @@
 ﻿$header-bg-color: #333;
 $body-width-max: 1020px;
 
-@import '_header.scss';
+/*@import '_header.scss';*/
 
 body {
-    padding: 0;
-    margin: 0;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 }
-main {
+/*main {
     max-width: $body-width-max;
     margin: auto;
     background-color: white;
@@ -15,5 +15,7 @@ main {
     h1 {
         text-align: center;
     }
-}
+}*/
+
+
 

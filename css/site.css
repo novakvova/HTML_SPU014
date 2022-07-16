@@ -1,51 +1,17 @@
-header {
-  background-color: #333;
-}
-header ul {
-  list-style-type: none;
-  padding: 0;
-  overflow: hidden;
-  max-width: 1020px;
-  margin: auto;
-}
-header ul li {
-  float: left;
-  border-right: 1px solid #bbb;
-}
-header ul li a {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-}
-header ul li a:hover {
-  background-color: #111;
-}
-header ul li .active {
-  background-color: #04AA6D;
-}
-header ul li:nth-last-child(-n+2) {
-  float: right;
-  border-left: 1px solid #bbb;
-  border-right: none;
-}
-header ul li:last-child {
-  border-left: none;
-}
-
+/*@import '_header.scss';*/
 body {
-  padding: 0;
-  margin: 0;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
 }
 
-main {
-  max-width: 1020px;
-  margin: auto;
-  background-color: white;
-}
-main h1 {
-  text-align: center;
-}
+/*main {
+    max-width: $body-width-max;
+    margin: auto;
+    background-color: white;
+
+    h1 {
+        text-align: center;
+    }
+}*/
 
 /*# sourceMappingURL=site.css.map */

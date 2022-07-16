@@ -3,16 +3,138 @@
 <head>
     <meta charset="utf-8" />
     <title>Захист тварин</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
+
 </head>
 <body>
     <script src="js/site.js"></script>
 
     <main>
-        <h1>Сайт для захисту тварин(котів та інших)--</h1>
-        <h2 style="color: red">Ви не любите котів</h2>
-        <img src="images/1.jpg" width="250" />
+        <div class="container">
+            <h1 class="text-center">Сайт для захисту тварин(котів та інших)--</h1>
+            <h2 style="color: red">Ви не любите котів</h2>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Фото</label>
+                <input type="text" class="form-control" id="image" >
+            </div>
+
+            <button id="btnAdd" type="button" class="btn btn-success">Додати котика</button>
+
+            <div class="row" id="cat_container">
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card img-fluid">
+                        <img src="images/2.jfif" class="card-img-top" alt="котик">
+                        <div class="card-body">
+                            <h5 class="card-title">Друзі</h5>
+                            <p class="card-text">Як мало треба для дружби.</p>
+                            <button type="button" class="btn btn-danger">Видалить</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card img-fluid">
+                        <img src="images/1.jpg" class="card-img-top" alt="котик">
+                        <div class="card-body">
+                            <h5 class="card-title">Справжній козак</h5>
+                            <p class="card-text">Кіт Український козак.</p>
+                            <button type="button" class="btn btn-danger">Видалить</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card img-fluid">
+                        <img src="images/3.jpg" class="card-img-top" alt="котик">
+                        <div class="card-body">
+                            <h5 class="card-title">Рускій голубий</h5>
+                            <p class="card-text">Нормальний кіт для хати</p>
+                            <button type="button" class="btn btn-danger">Видалить</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card img-fluid">
+                        <img src="images/4.jfif" class="card-img-top" alt="котик">
+                        <div class="card-body">
+                            <h5 class="card-title">Соня</h5>
+                            <p class="card-text">Якщо потрібно поспати</p>
+                            <button type="button" class="btn btn-danger">Видалить</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4 col-lg-3">
+                    <div class="card img-fluid">
+                        <img src="images/5.jpg" class="card-img-top" alt="котик">
+                        <div class="card-body">
+                            <h5 class="card-title">Купання</h5>
+                            <p class="card-text">Нормально покупаний кіт</p>
+                            <button type="button" class="btn btn-danger">Видалить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
-    
+
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <script>
+
+        var cat_container = document.getElementById("cat_container");
+
+        window.onload = function () {
+            var item = {
+                image: "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/HB4AT3D3IMI6TMPTWIZ74WAR54.jpg&w=1440",
+                title: "Lucky",
+                description: "Хороший пес. Дуже милий"
+            };
+
+            var data =
+                `<div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card img-fluid">
+                    <img src="${item.image}" class="card-img-top" alt="котик">
+                    <div class="card-body">
+                        <h5 class="card-title">${item.title}</h5>
+                        <p class="card-text">${item.description}</p>
+                        <button type="button" class="btn btn-danger">Видалить</button>
+                    </div>
+                </div>
+              </div>`;
+            cat_container.innerHTML += data;
+
+        }
+
+
+        var btnAdd = document.getElementById("btnAdd");
+        btnAdd.onclick = function () {
+            var image = document.getElementById("image");
+            if (!image.value) {
+                alert("Вкажіть адрес фото");
+                return;
+            }
+            var img = image.value;
+            image.value = "";
+            var data =
+              `<div class="col-sm-6 col-md-4 col-lg-3">
+                <div class="card img-fluid">
+                    <img src="${img}" class="card-img-top" alt="котик">
+                    <div class="card-body">
+                        <h5 class="card-title">Купання</h5>
+                        <p class="card-text">Нормально покупаний кіт</p>
+                        <button type="button" class="btn btn-danger">Видалить</button>
+                    </div>
+                </div>
+              </div>`;
+            //alert(data);
+            
+            cat_container.innerHTML += data;
+            //alert("Додати кота");
+        }
+    </script>
 </body>
 </html>
