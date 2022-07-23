@@ -1,5 +1,16 @@
 ﻿var cat_container = document.getElementById("cat_container");
 
+function initEventDelete() {
+    const items = document.querySelectorAll("[data-remove]");
+    console.log("remove button", items);
+    for (var i = 0; i < items.length; i++) {
+        items[i].onclick = function () {
+            const container = this.closest(".col-md-4");
+            container.remove();
+        }
+    }
+}
+
 window.onload = function () {
 
 
@@ -16,12 +27,15 @@ window.onload = function () {
                     <div class="card-body">
                         <h5 class="card-title">${item.title}</h5>
                         <p class="card-text">${item.description}</p>
-                        <button type="button" class="btn btn-danger">Видалить</button>
+                        <button type="button" class="btn btn-success" data-edit>Змінити</button>
+                        <button type="button" class="btn btn-danger" data-remove>Видалить</button>
                     </div>
                 </div>
               </div>`;
     cat_container.innerHTML += data;
 
+    initEventDelete();
+    
 }
 
 var image = document.getElementById("image");
@@ -57,7 +71,8 @@ btnAdd.onclick = function () {
                     <div class="card-body">
                         <h5 class="card-title">${item.title}</h5>
                         <p class="card-text">${item.description}</p>
-                        <button type="button" class="btn btn-danger">Видалить</button>
+                        <button type="button" class="btn btn-success" data-edit>Змінити</button>
+                        <button type="button" class="btn btn-danger" data-remove>Видалить</button>
                     </div>
                 </div>
               </div>`;
@@ -66,4 +81,6 @@ btnAdd.onclick = function () {
 
     var myModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('addModal'));
     myModal.hide();
+
+    initEventDelete();
 }
