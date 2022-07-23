@@ -15,12 +15,11 @@
             <h1 class="text-center">Сайт для захисту тварин(котів та інших)--</h1>
             <h2 style="color: red">Ви не любите котів</h2>
 
-            <div class="mb-3">
-                <label for="image" class="form-label">Фото</label>
-                <input type="text" class="form-control" id="image" >
-            </div>
-
-            <button id="btnAdd" type="button" class="btn btn-success">Додати котика</button>
+            <button type="button" 
+                    data-bs-toggle="modal" data-bs-target="#addModal"
+                    class="btn btn-success">
+                Додати котика
+            </button>
 
             <div class="row" id="cat_container">
                 <div class="col-sm-6 col-md-4 col-lg-3">
@@ -81,60 +80,53 @@
         </div>
     </main>
 
+
+
+    <!-- Modal -->
+    <div class="modal" id="addModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Додати запис</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="txtTitle" class="form-label">Назва</label>
+                        <input type="text" class="form-control" id="txtTitle" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="txtDescription" class="form-label">Опис</label>
+                        <input type="text" class="form-control" id="txtDescription" aria-describedby="emailHelp">
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">
+                            <img src="images/select.png"
+                                 alt="select image"
+                                 width="150"
+                                 id="selectImage"
+                                 style="cursor:pointer" />
+                        </label>
+                        <input type="file"
+                               style="display:none;"
+                               class="form-control"
+                               id="image">
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                    <button type="button" id="btnAdd" class="btn btn-primary">Додати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/bootstrap.bundle.min.js"></script>
 
-    <script>
-
-        var cat_container = document.getElementById("cat_container");
-
-        window.onload = function () {
-            var item = {
-                image: "https://www.washingtonpost.com/wp-apps/imrs.php?src=https://arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/HB4AT3D3IMI6TMPTWIZ74WAR54.jpg&w=1440",
-                title: "Lucky",
-                description: "Хороший пес. Дуже милий"
-            };
-
-            var data =
-                `<div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card img-fluid">
-                    <img src="${item.image}" class="card-img-top" alt="котик">
-                    <div class="card-body">
-                        <h5 class="card-title">${item.title}</h5>
-                        <p class="card-text">${item.description}</p>
-                        <button type="button" class="btn btn-danger">Видалить</button>
-                    </div>
-                </div>
-              </div>`;
-            cat_container.innerHTML += data;
-
-        }
-
-
-        var btnAdd = document.getElementById("btnAdd");
-        btnAdd.onclick = function () {
-            var image = document.getElementById("image");
-            if (!image.value) {
-                alert("Вкажіть адрес фото");
-                return;
-            }
-            var img = image.value;
-            image.value = "";
-            var data =
-              `<div class="col-sm-6 col-md-4 col-lg-3">
-                <div class="card img-fluid">
-                    <img src="${img}" class="card-img-top" alt="котик">
-                    <div class="card-body">
-                        <h5 class="card-title">Купання</h5>
-                        <p class="card-text">Нормально покупаний кіт</p>
-                        <button type="button" class="btn btn-danger">Видалить</button>
-                    </div>
-                </div>
-              </div>`;
-            //alert(data);
-            
-            cat_container.innerHTML += data;
-            //alert("Додати кота");
-        }
-    </script>
+    <script src="js/index.js"></script>
 </body>
 </html>
