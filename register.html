@@ -4,15 +4,204 @@
     <meta charset="utf-8" />
     <title>Захист тварин</title>
     <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="lib/cropperjs/cropper.min.css" rel="stylesheet" />
+    <link href="lib/select2/css/select2.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
+    <style>
+        .preview {
+            height: 100px !important;
+            width: 100px !important;
+            border: 1px solid silver;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
     <script src="js/site.js"></script>
     <main>
         <div class="container">
             <h1 class="text-center">Реєстрація</h1>
+            <form class="col-md-6 offset-md-3 need-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="lastName" class="form-label">Прізвище</label>
+                            <input type="text" class="form-control" id="lastName" required>
+                            <div class="invalid-feedback">
+                                Вказіть прізвище
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="firstName" class="form-label">Ім'я</label>
+                            <input type="text" class="form-control" id="firstName" required>
+                            <div class="invalid-feedback">
+                                Вказіть ім'я
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="country" class="form-label">Країна</label>
+                            <select class="form-select" id="country" required>
+                                <option selected value="">Оберіть країну</option>
+                                <option value="1">Україна</option>
+                                <option value="2">Польща</option>
+                            </select>
+                            <div class="invalid-feedback">Оберіть країну</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="phone" class="form-label">Телефон</label>
+                            <input type="text" class="form-control" id="phone">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="email" class="form-label">Електронна пошта</label>
+                    <input type="email" class="form-control" id="email">
+                </div>
+
+                <div class="mb-3">
+                    <label for="image" class="form-label">
+                        Фото
+                        <img src="images/select.png"
+                             alt="select image"
+                             width="150"
+                             id="selectImage"
+                             style="cursor:pointer" />
+                    </label>
+                    <input type="file"
+                           style="display:none;"
+                           class="form-control"
+                           id="image">
+                </div>
+
+                <div class="mb-3">
+                    <label for="password" class="form-label">Пароль</label>
+                    <input type="password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-primary">Реєструватися</button>
+            </form>
+
         </div>
     </main>
+
+    <!-- Modal -->
+    <div class="modal" id="cropperModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Редагування фото</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div>
+                                <img src="images/select.png"
+                                     id="imgCropper"
+                                     width="100%"
+                                     alt="Фото для обрізки" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div id="imgPrev"
+                                 class="preview">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="btnLeft" class="btn btn-success">Left</button>
+                    <button type="button" id="btnRight" class="btn btn-success">Right</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+                    <button type="button" id="btnAdd" class="btn btn-primary">Обрізати</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script src="lib/cropperjs/cropper.min.js"></script>
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/select2/js/select2.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#country').select2();
+        });
+    </script>
+    <script>
+        var base64 = "";
+        var image = document.getElementById("image");
+        var imgCropper = document.getElementById("imgCropper");
+        var imgPrev = document.getElementById("imgPrev");
+        var cropper = new Cropper(imgCropper, {
+            aspectRatio: 1 / 1,
+            viewMode: 1,
+            preview: imgPrev
+        });
+        //Подія вибору фото для користувача
+        image.onchange = function (e) {
+            var file = e.target.files[0];
+            if (file) {
+                var url = URL.createObjectURL(file);
+                //console.log("image", url);
+                var myModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('cropperModal'));
+                myModal.show();
+                cropper.replace(url);
+                image.value = "";
+
+            }
+        }
+
+        let btnAdd = document.getElementById("btnAdd");
+        btnAdd.onclick = function () {
+            base64 = cropper.getCroppedCanvas().toDataURL();
+            var selectImage = document.getElementById("selectImage");
+            selectImage.src = base64;
+            var myModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('cropperModal'));
+            myModal.hide();
+        }
+
+        let btnLeft = document.getElementById("btnLeft");
+        btnLeft.onclick = function () {
+            cropper.rotate(-90);
+        }
+
+        let btnRight = document.getElementById("btnRight");
+        btnRight.onclick = function () {
+            cropper.rotate(90);
+        }
+    </script>
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+        (function () {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.querySelectorAll('.need-validation')
+
+            // Loop over them and prevent submission
+            Array.prototype.slice.call(forms)
+                .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+        })()
+    </script>
 </body>
 </html>

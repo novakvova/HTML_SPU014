@@ -1,0 +1,22 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "library": "cropperjs@1.5.12",
+      "destination": "lib/cropperjs/"
+    }
+  ,
+{
+  "provider": "cdnjs",
+  "library": "select2@4.0.13",
+  "destination": "lib/select2/"
+}
+,
+{
+  "provider": "cdnjs",
+  "library": "jquery@3.6.0",
+  "destination": "lib/jquery/"
+}
+]
+}
